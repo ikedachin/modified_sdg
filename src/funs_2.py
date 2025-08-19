@@ -340,7 +340,7 @@ class Pipeline:
 
         pbar = tqdm(total=len(data), desc="回答生成中")
         for batch in batched(data, settings.batch_size):
-            batch_prompts = [f"{answering_prompt.format(academic=d['Academic'])}\n\n{d['Question']}" for d in batch]  ### check
+            batch_prompts = [f"{answering_prompt.format(academic=d['Academic'], Question=d['Question'], thinking=d['thinking'])}" for d in batch]  ### check
             # print(f"回答生成プロンプト: {batch_prompts}")
             results = inference_func(model, batch_prompts, settings)
             for i, res in enumerate(results):
@@ -394,7 +394,7 @@ class Pipeline:
 
 
         for batch in batched(data, settings.batch_size):
-            batch_prompts = [f"""{thinking_prompt}""".format(Question=d['Question'], Answer=d['Answer']) for d in batch] ###
+            batch_prompts = [f"""{thinking_prompt}""".format(Question=d['Question'], academic=d['Academic']) for d in batch] ###
             results = inference_func(model, batch_prompts, settings)
             for i, res in enumerate(results):
                 d = batch[i].copy()
@@ -448,7 +448,7 @@ class Pipeline:
             current_stage_data = []
             pbar = tqdm(total=len(data_to_evolve), desc=f"思考進化 {stage_idx}回目")
             for batch in batched(data_to_evolve, settings.batch_size):
-                batch_prompts = [f"{evo_prompt}\n\n<question>{d['Question']}</question><thinking>{d['thinking']}</thinking><output>{d['Answer']}</output>" for d in batch]
+                batch_prompts = [f"{evo_prompt.format(Question=d['Question'], academic=d['Academic'])}" for d in batch]
                 evolved_texts = self.inf.inst_model_inference(model, batch_prompts, settings)
                 for i, d in enumerate(batch):
                     new_d = d.copy()

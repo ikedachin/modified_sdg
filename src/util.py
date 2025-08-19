@@ -67,6 +67,7 @@ def load_config(yaml_path: str | Path) -> SimpleNamespace:
     try:
         with yaml_path.open("r", encoding="utf-8") as f:
             raw_conf: dict = yaml.safe_load(f)
+            # print(raw_conf)  # デバッグ用に設定内容を表示
     except yaml.YAMLError as e:
         raise ConfigLoadError(f"YAML パースに失敗しました: {e}") from e
 

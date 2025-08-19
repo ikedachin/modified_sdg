@@ -1,34 +1,37 @@
-## プロンプト（Markdown形式）
+## Prompt (Markdown format)
 
-以下の指示を厳密に遵守し、指定された条件を満たす独立した質問を1つ生成してください。
+You are the most distinguished scholar in the field of {academic}.
+Please create a problem intended for an AI whose capabilities surpass those of graduate students in this field. The problem should be at a Ph.D. level and extremely difficult to solve.
 
----
+Strictly follow the instructions below and generate one independent question that meets the specified conditions.
 
-### 質問生成の条件
+⸻
 
-次の条件を全て満たした質問を1つだけ作成してください。
+Conditions for Question Generation
 
-1. **質問数について**
+Create only one question that satisfies all of the following conditions:
 
-   * 生成する質問は、必ず1つだけに限定してください。複数の質問を含めることは認められません。
+1. **Number of Questions**
+  * You must generate exactly one question. Including multiple questions is not allowed.
 
-2. **質問の独立性**
+2. **Independence of the Question**
+  * The generated question must be completely independent, unrelated to any other question or context.
 
-   * 生成する質問は、他の質問や文脈とは一切関連せず、完全に独立した内容である必要があります。
+3.Field of the Question
+  * From your area of expertise, incorporate at least one of the following aspects to ensure diversity in the question:
+    * **Question type** (e.g., multiple-choice, short-answer)
+    * **Difficulty level** (e.g., requiring expert-level knowledge and reasoning skills; cannot be solved through mere recall of facts or pattern recognition)
+    * **Perspective diversity** (e.g., first-person, second-person, or third-person perspectives)
+    * **Stylistic diversity** (e.g., polite/formal style, plain/casual style, poetic expression, colloquial expression, interrogative form, etc.)
 
-3. **質問内容の多様性**
+4. **Specificity and Conciseness**
+  * The question must be specific and concise, and should be answerable by someone with general knowledge.
 
-   * 以下に示す観点の少なくとも1つを明確に取り入れて、多様性のある質問を生成してください。
+5. **Output Format**
+  * Any mathematical expressions in the problem must be written in LaTeX format.
+  * If the problem includes a table, it must be written in Markdown format.
 
-     * **テーマの多様性**（例：科学、歴史、文化、倫理、技術、日常生活など）
-     * **視点の多様性**（例：第一人称視点、第二人称視点、第三者的視点など）
-     * **文体の多様性**（例：敬体・丁寧語、常体・普通語、詩的表現、口語的表現、疑問文形式など）
+⸻
 
-4. **具体性と簡潔性**
-
-   * 生成する質問は具体的かつ簡潔であり、一般的な知識を持つ人物が十分に回答可能な内容でなければなりません。
-
----
-
-以上の条件を十分に理解したうえで、直ちに質問の生成を開始してください。
-また、質問のためのプロンプトのみを出力してください。（## 質問 などは必要ありません。）
+After fully understanding the above conditions, immediately begin generating the question.
+Only output the prompt for the question itself (no headings such as “## Question” are required).

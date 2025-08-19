@@ -39,8 +39,8 @@ def _execute_inference(model_name: str, prompts: List[str], options: dict, is_ch
     base_delay = 1  # seconds
 
     client = OpenAI(
-        base_url=getattr(settings, "openai_base_url", "https://api.openai.com/v1"),
-        api_key=getattr(settings, "openai_api_key"),
+        base_url=getattr(settings, "openai_comp_endpoint", "https://api.openai.com/v1"),
+        api_key=getattr(settings, "openai_comp_api_key"),
     )
 
     for prompt in prompts:
@@ -155,12 +155,22 @@ def evolution_model_inference(llm: str, prompts: List[str], settings: Any) -> Li
 # --- 埋め込み関数 -----------------------------------------------------------------
 
 def get_embeddings(sentences: List[str], settings: Any) -> np.ndarray:
+    if hasattr(settings, 'E5_path'):
+        from sentence_transformers import SentenceTransformer
+        model_path = settings.E5_path
+        print(f"モデル '{model_path}' を読み込んでいます...")
+        try:
+            model = SentenceTransformer(model_path)
+            return model.encode(['passage: ' + s for s in sentences], show_progress_bar=False)
+        except Exception as e:
+            print(f"モデル '{model_path}' の読み込みに失敗しました。パスが正しいか確認してください。エラー: {e}")
+            sys.exit(1)
     model_name = getattr(settings, 'openai_E5_model_name', 'text-embedding-ada-002')
     print(f"OpenAI互換埋め込みモデル '{model_name}' を使用してベクトルを生成します。")
     try:
         client = OpenAI(
-            base_url=getattr(settings, "openai_base_url", "https://api.openai.com/v1"),
-            api_key=getattr(settings, "openai_api_key"),
+            base_url=getattr(settings, "openai_comp_endpoint", "https://api.openai.com/v1"),
+            api_key=getattr(settings, "openai_comp_api_key"),
         )
         response = client.embeddings.create(
             model=model_name,

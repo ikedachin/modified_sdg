@@ -1,56 +1,53 @@
-今回は「BARE」について解説します。
+This time, we will explain “BARE.”
 
-BAREとは、Instructチューニングを施す前のBaseモデルを使い、「初期段階の質問データ」を自動生成する仕組みです。
-BAREの最大の特長は、その\*\*「多様性」\*\*にあります。一般的なSFT済みのInstructモデルでは、生成されるデータの多様性が低下することが研究で報告されていますが、BAREはこれを克服するために開発された手法です。
+BARE is a mechanism that uses a Base model before Instruct tuning to automatically generate “initial-stage question data.”
+The greatest feature of BARE lies in its “diversity.”
+Research has reported that general SFT-trained Instruct models tend to generate data with lower diversity, but BARE was developed to overcome this issue.
 
-以下に、BAREの要点を明確にまとめます。
+Below is a clear summary of the key points of BARE.
 
-### BAREの要点：
+### Key Points of BARE:
+1.The Base model autonomously generates a wide variety of prompts.
+2.While the “output format” such as YAML is generally maintained, variation in the wording of explanations and instructions is allowed within a certain range.
+3.Do not include details of evaluation criteria or self-review (this will be handled in the next Refine phase).
+4.To maximize diversity, instruct the model to use clearly different themes, perspectives, and writing styles for each sample.
+5.To balance output randomness and consistency, set the generation temperature to around 0.7.
+6.Since the Base model is suitable for simple text generation, slight irregularities in the output format are acceptable. Also, basically output only the BASE_PROMPT (or an equivalent main section).
 
-1. Baseモデルが、完全に自律的な形で多種多様なプロンプトを生成する。
-2. YAMLなどの「出力書式」は基本的に維持しつつ、説明や指示の言い回しに関しては一定の範囲で変化を許容する。
-3. 評価基準や自己レビューの詳細は含めない（これは次のRefineフェーズで処理する）。
-4. 多様性を最大化するため、各サンプルごとに明確に異なるテーマ、視点、文体を用いるよう指示する。
-5. 出力のランダム性と整合性を両立するために、**生成時の温度（temperature）は0.7前後**に設定する。
-6. Baseモデルはシンプルな文章生成に適しているため、出力フォーマットの多少の乱れは許容する。また、基本的に\*\*BASE\_PROMPT（またはそれに類似する主要部分）\*\*のみを出力させる。
+A Base model that meets these conditions generates data in the following JSON format:
 
-これらの条件を満たしたBaseモデルからは、以下のようなJSON形式のデータが生成されます。
+### Output Format:
 
-### 出力フォーマット：
+‘’‘json
+{“Question”: “Specific question text 1”, “Answer”: “Content of the answer to question 1”}
+{“Question”: “Specific question text 2”, “Answer”: “Content of the answer to question 2”}
+{“Question”: “Specific question text 3”, “Answer”: “Content of the answer to question 3”}
 
-'''json
-{"Question": "具体的な質問文1", "Answer": "質問に対する回答内容1"}
-{"Question": "具体的な質問文2", "Answer": "質問に対する回答内容2"}
-{"Question": "具体的な質問文3", "Answer": "質問に対する回答内容3"}
-<stop>
-'''
+‘’’
+•Each data entry contains two elements: “Question” and “Answer.”
+• **Question**: The question itself.
+• **Answer**: The AI’s answer to the question.
 
-* 各データは「Question」「Answer」の2要素を含みます。
+Also, when inputting to the Base model, you can specify in advance how many pieces of data to generate.
+At the end of the generated data, a <stop> tag is always inserted (this acts like an EOS token that explicitly marks the end of the text).
+Furthermore, the generated questions are designed so that the model can answer them without any additional memory (the question alone is sufficient for the AI to answer).
 
-  * **Question**: 質問そのものを記載。
-  * **Answer**: 質問に対するAIの回答を記載。
+Below, we present data actually output by the Base model.
+Please check the settings and output data, paying particular attention to the following points:
+• **The specified number of questions (4 in this case) is generated correctly.**
+• **The questions have no relationship to each other and are diverse.**
+• **The <stop> tag is always inserted at the end.**
 
-また、Baseモデルへの入力時に、何問分のデータを生成するかを事前に指定することができます。
-生成データの最後には必ず`<stop>`タグが挿入されます（これは文章の終了を明示するEOSトークンのような役割です）。
-また、出力される質問はモデルがほかの記憶なしに回答できるようになっています。（質問のみだけでAIが十分に回答できるようになっています。）
+### Output Settings for This Time:
+•Number of output questions: 4
+•Relationship between questions: None (emphasis on diverse content)
 
-以下に、実際にBaseモデルから出力されたデータを提示します。
-設定内容および出力データを確認し、特に以下の点に着目してください。
+⸻
 
-* **指定された質問数（今回は4問）が正しく生成されていること。**
-* **質問同士に関連性が一切なく、多様であること。**
-* **最後に必ず`<stop>`タグが挿入されていること。**
+Below is the actual output data.
+Now, let’s take a look at the four question data sets output by the base model, each from completely different fields.
+This is the json-formatted data output directly by the model (including the  tag).
 
-### 今回の出力設定：
-
-* 出力質問数：4問
-* 質問間の関連性：なし（多様な内容を重視）
-
----
-
-以下が実際の出力データです。
-それでは実際にベースモデルが出力してきた質問分野がまったくバラバラな4つの質問データを見てきましょう。
-これは、あくまでモデルが直接出してきたjson形式のデータです。（<stop>タグもついています。）
-
-## 出力データ(json形式 & <stop>タグ付き)
+## Output Data (json format & with  <stop> tag)
 ```json
+

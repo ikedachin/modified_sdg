@@ -8,19 +8,24 @@
 # ----------------------------
 #  ↓↓↓  OpenAI API設定  ↓↓↓
 # ----------------------------
-inference_backend: "api_openai"
-openai_api_key: "YOUR_OPENAI_API_KEY"
-openai_base_url: "https://api.openai.com/v1"
-Instruct_model_name: "gpt-4.1-nano"
+inference_backend: "api_openai_comp"
+# inference_backend: "api_openai"
+openai_api_key: ""
+openai_comp_api_key: ""
+openai_base_url: "https://openrouter.ai/api/v1"
+openai_comp_endpoint: "https://openrouter.ai/api/v1"
+Instruct_model_name: "openrouter/horizon-beta"
 Instruct_temperature: 0.7
 Instruct_top_p: 1.0
-base_model_name: "gpt-4.1-nano"
+base_model_name: "openrouter/horizon-beta"
 base_temperature: 0.7
 base_top_p: 1.0
-think_model_name: "gpt-4o"
+think_model_name: "openrouter/horizon-beta"
 think_temperature: 0.7
 think_top_p: 1.0
-E5_model_name: "text-embedding-3-small"
+E5_path: "./data/model/multilingual-e5-large"
+# openai_E5_model_name: "text-embedding-ada-002"
+E5_model_name: "./data/model/multilingual-e5-large"
 # ----------------------------
 #   ↑↑↑  OpenAI API設定 ↑↑↑
 # ----------------------------
@@ -96,5 +101,5 @@ Data_curation: False
 # --- 出力先などに関する設定
 data_folda_path: "./data"
 Save_temporary_data: True
-Number_of_questions_generated: 50
+Number_of_questions_generated: 1000
 output_path: "./data"

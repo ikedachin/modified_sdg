@@ -4,7 +4,7 @@
 import argparse
 import time
 from datetime import timedelta
-from src.funs import setup_pipeline
+from src.funs_2 import setup_pipeline
 
 def main():
     start_time = time.time()
@@ -31,20 +31,18 @@ def main():
         # 質問進化
         time.sleep(10)
         questions = pipe.evolve_questions(questions)
+        # 思考生成
+        time.sleep(10)
+        questions = pipe.generate_thinking(questions)
+        # 思考進化
+        time.sleep(10)
+        # questions = pipe.evolve_thinking(questions)
         # 回答生成
         time.sleep(10)
         answers = pipe.generate_answers(questions)
-        # print(answers)
         # 回答進化
         time.sleep(10)
         answers = pipe.evolve_answers(answers)
-        # 思考生成
-        time.sleep(10)
-        answers = pipe.generate_thinking(answers)
-        # 思考進化
-        time.sleep(10)
-        # answers = pipe.evolve_thinking(answers)
-        # print(answers)
         # 最終キュレーション
         time.sleep(10)
         final_data = pipe.curate_final(answers)

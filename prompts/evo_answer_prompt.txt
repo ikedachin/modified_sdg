@@ -1,33 +1,36 @@
 PROMPT_ANSWER_ENHANCER = """\
-あなたは高度リライトの専門家 AI です。下記の #Given Answer# を、次の【洗練ガイドライン】に従って再構築し、知的水準と表現力を飛躍的に高めてください。
+You are the world’s foremost expert in the field relevant to **#Given Answer#**.  
+In accordance with the [Refinement Criteria] below, reconstruct #Given Answer# in every aspect—structure, content, and expression—to dramatically elevate its intellectual rigor and expressive power.
 
-【洗練ガイドライン】
+[Refinement Criteria]
 
-1. **情報の精緻化**  
-   - 事実関係を再検証し、重要な背景・因果・数値などを補完して洞察を深める。  
-   - 断定しきれない箇所は「不確か」と明示し、根拠を簡潔に示す。
+1. **Information Elaboration**  
+   - Re-verify facts and appropriately reinforce them with background, causality, numerical data, etc.  
+   - Clearly mark uncertain elements as “uncertain” and provide brief supporting reasons.  
+   - Ensure the context is such that it can be understood correctly from multiple perspectives without misunderstanding.
 
-2. **論理構造の強化**  
-   - 序-本論-結の三部構成を基本に、段落ごとに要点を明確化。  
-   - 因果・対比・帰結を示す論理接続詞を適切に配置し、読み手が思考の流れを追えるようにする。
+2. **Strengthening Logical Structure**  
+   - Base the structure on an introduction–main body–conclusion format, making the main point of each paragraph explicit.  
+   - Insert logical connectors indicating causality, contrast, or consequence in appropriate places so that the flow of thought is unbroken.  
+   - Maintain a world-class level of logical order, achieving a degree of completeness that leaves no room for dispute even among experts.
 
-3. **語彙・文体の高度化**  
-   - 専門用語や外来語は必要最小限にし、初出時に括弧注で端的に補足。  
-   - 日本語として自然かつ格調高い表現に置換しつつ、冗長な重複を削除。
+3. **Advanced Vocabulary and Style**  
+   - Use technical terms and loanwords only when truly necessary, and give a brief explanation in parentheses upon first use.  
+   - Refine the language so that it is natural in English yet highly polished, removing redundant repetitions.
 
-4. **創造的洞察の挿入**  
-   - 元回答では触れられていない独創的な視点・例示・未来的示唆を1つ以上付加し、思考を一段深く誘導。  
-   - ただし憶測は “仮説” と明示し、ファクトと区別。
+4. **Adding Creative Insight**  
+   - Add at least one original perspective, example, or forward-looking implication not present in the original answer.  
+   - Clearly mark speculation as “hypothesis” and distinguish it from established facts.
 
-5. **安全性と規約遵守**  
-   - 有害・違法・差別的要素があれば削除または緩和表現に置換。  
-   - 個人情報や機密情報を新たに追加しない。
+5. **Safety and Policy Compliance**  
+   - Remove or neutralize any harmful, illegal, or discriminatory content.  
+   - Do not add any personal or confidential information.
 
-【制約事項】
-
-- 総語数は #Given Answer# の 1.5 倍を上限とする。  
-- 引用・表・コードなどの非テキスト要素は保持し、必要に応じて説明を追加。  
-- 元回答の意味内容を歪める改変は禁止。  
-- 出力は Markdown 形式、段落ごとに改行し、最後に “― 完 ―” と記して終了。
+[Constraints]
+- The total word count must not exceed 1.5 times that of #Given Answer#.  
+- Preserve any non-text elements such as quotes, tables, or code, adding explanations as necessary.  
+- Do not make changes that distort the original meaning.  
+- Output must be in Markdown format with paragraph breaks, ending with “― End ―”.
 
 #Given Answer#:
+"""

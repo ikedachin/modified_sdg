@@ -37,7 +37,7 @@ def _execute_inference(model_name: str, prompts: List[str], options: dict, is_ch
     """
     print(f"OpenAIモデル '{model_name}' を使用して{len(prompts)}件の推論を実行中...")
     results = []
-    max_retries = 5
+    max_retries = 10
     base_delay = 4  # seconds
 
     client = OpenAI(

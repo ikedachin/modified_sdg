@@ -72,11 +72,11 @@ class Pipeline:
         prompts = self.prompts
         data_dir = self.data_dir
 
-        df = pd.read_csv("./seeds/academics.csv", encoding="utf-8", header=None, index_col=None, names=["seeds"])
+        df = pd.read_csv("./seeds/academics_jp.csv", encoding="utf-8", header=None, index_col=None, names=["seeds"])
         seeds_list = df.loc[:, "seeds"].tolist()
         # print(f"シードデータの読み込みが完了しました。{seeds_list}")
         random_seeds = random.sample(seeds_list, settings.batch_size)
-        random_seeds = [seed.replace('/', ', ') for seed in random_seeds]
+        random_seeds = [seed.replace('/', '、') for seed in random_seeds]
 
         # 生成方式に応じてモデルをロード
         if settings.Seed_generation_method == 'base':
@@ -116,21 +116,19 @@ class Pipeline:
                 continue
 
             batch_prompts = []
-            batch_academics = []
             for i in range(batch_size):
                 start_index = i * num_nouns_per_prompt
                 end_index = start_index + num_nouns_per_prompt
                 nouns_for_prompt = noise_nouns[start_index:end_index]
                 noise = ' '.join(nouns_for_prompt)
-                prompt = f"noise: {noise}" + f"\n\n{prompt_template}".format(academic=random_seeds[i])
+                prompt = f"ノイズ: {noise}" + f"\n\n{prompt_template}".format(academic=random_seeds[i])
                 batch_prompts.append(prompt)
-                batch_academics.append(random_seeds[i])
             # print(f"生成プロンプト: {batch_prompts}")
 
             results = inference_func(model, batch_prompts, settings)
 
             batch_data = []
-            for res, academic in zip(results, batch_academics):
+            for res in results:
                 if not res:
                     continue
                 if settings.Seed_generation_method == 'base':
@@ -139,11 +137,10 @@ class Pipeline:
                             data = util.json.loads(line)
                             if isinstance(data, dict) and "Question" in data and data["Question"]:
                                 batch_data.append(data)
-                                batch_academics.append(academic)
                         except Exception:
                             continue
                 else:
-                    batch_data.append({"Question": res.strip(), "Answer": "", "Academic": academic})
+                    batch_data.append({"Question": res.strip(), "Answer": ""})
 
             if batch_data:
                 util.save_jsonl(batch_data, str(questions_file), mode='a')
@@ -325,12 +322,7 @@ class Pipeline:
             inference_func = self.inf.inst_model_inference
             model_name_for_log = settings.Instruct_model_name
 
-        ################################################################### 改造箇所
-        # instruction = "Please answer the following question in English."
-        answering_prompt = self.prompts["answer_prompt"]
-        # print(f"回答生成プロンプト: {answering_prompt}")
-        ###################################################################
-
+        instruction = "以下の質問に日本語で答えてください。"
         answered_data = []
         def batched(iterable, n):
             it = iter(iterable)
@@ -340,8 +332,7 @@ class Pipeline:
 
         pbar = tqdm(total=len(data), desc="回答生成中")
         for batch in batched(data, settings.batch_size):
-            batch_prompts = [f"{answering_prompt.format(academic=d['Academic'])}\n\n{d['Question']}" for d in batch]  ### check
-            # print(f"回答生成プロンプト: {batch_prompts}")
+            batch_prompts = [f"{instruction}\n\n{d['Question']}" for d in batch]
             results = inference_func(model, batch_prompts, settings)
             for i, res in enumerate(results):
                 d = batch[i].copy()
@@ -379,7 +370,7 @@ class Pipeline:
             inference_func = self.inf.inst_model_inference
             model_name_for_log = settings.Instruct_model_name
 
-        # instruction = "Please answer the following question in English."
+        instruction = "以下の質問に日本語で答えてください。"
         thinking_data = []
         def batched(iterable, n):
             it = iter(iterable)
@@ -411,69 +402,6 @@ class Pipeline:
         del model
         self.inf.unload_model(model_name_for_log)
         return thinking_data
-
-    def evolve_thinking(self, data: List[Dict]) -> List[Dict]:
-        """
-        フェーズ2: 思考進化パイプライン
-        """
-        self._require_init()
-        if not data:
-            return []
-        from tqdm import tqdm
-        import random
-
-        settings = self.settings
-        prompts = self.prompts
-
-        enable_flag = settings.Thinking_evolution
-        times = settings.Thinking_evolution_times
-        staged_flag = settings.Number_of_stages_of_thinking_evolution
-        evo_prompt = prompts["evo_thinking"]
-        data_key = "thinking"
-
-        if not enable_flag or times == 0:
-            return data
-
-        model = self.inf.inst_model_load(settings)
-        evolved_data_stages = {0: data}
-        data_to_evolve = [d.copy() for d in data]
-
-        def batched(iterable, n):
-            it = iter(iterable)
-            from itertools import islice
-            while batch := list(islice(it, n)):
-                yield batch
-
-        for stage_idx in range(1, times + 1):
-            current_stage_data = []
-            pbar = tqdm(total=len(data_to_evolve), desc=f"思考進化 {stage_idx}回目")
-            for batch in batched(data_to_evolve, settings.batch_size):
-                batch_prompts = [f"{evo_prompt}\n\n<question>{d['Question']}</question><thinking>{d['thinking']}</thinking><output>{d['Answer']}</output>" for d in batch]
-                evolved_texts = self.inf.inst_model_inference(model, batch_prompts, settings)
-                for i, d in enumerate(batch):
-                    new_d = d.copy()
-                    new_d[data_key] = evolved_texts[i]
-                    current_stage_data.append(new_d)
-                pbar.update(len(batch))
-            pbar.close()
-            evolved_data_stages[stage_idx] = current_stage_data
-            data_to_evolve = current_stage_data
-
-        if staged_flag and times > 0:
-            final_evolved_data = []
-            num_stages = times + 1
-            base_count_per_stage = len(data) // num_stages
-            for stage_idx in range(num_stages):
-                stage_data = evolved_data_stages.get(stage_idx, [])
-                count = base_count_per_stage if stage_idx < times else len(data) - len(final_evolved_data)
-                final_evolved_data.extend(random.sample(stage_data, min(count, len(stage_data))))
-            result_data = final_evolved_data
-        else:
-            result_data = evolved_data_stages[times]
-
-        del model
-        self.inf.unload_model(settings.Instruct_model_name)
-        return result_data
 
     def evolve_answers(self, data: List[Dict]) -> List[Dict]:
         """
@@ -566,7 +494,7 @@ class Pipeline:
         for batch in batched(data, settings.batch_size):
             batch_prompts = []
             for d in batch:
-                prompt = f'{curation_prompt}\n\nQuestion: {d["Question"]}\nThinking: {d["thinking"]}\nAnswer: {d["Answer"]}'
+                prompt = f'{curation_prompt}\n\n質問: {d["Question"]}\n回答: {d["Answer"]}'
                 batch_prompts.append(prompt)
             results = self.inf.inst_model_inference(model, batch_prompts, settings)
             for i, res in enumerate(results):
@@ -588,8 +516,6 @@ class Pipeline:
             return None
         from src import util
 
-        settings = self.settings
-
         output_dir = self.output_dir
         timestamp = datetime.now().strftime("%Y%m%d_%H%M")
         backend_name = getattr(self.settings, 'inference_backend', 'vllm')
@@ -599,13 +525,10 @@ class Pipeline:
         final_dataset = []
         for item in data:
             formatted_item = {
-                # "instruction": "Please answer the following question in English.",
+                "instruction": "以下の質問に日本語で答えてください。",
                 "input": item.get("Question", ""),
                 "output": item.get("Answer", ""),
                 "thinking": item.get("thinking", ""),
-                "academic": item.get("Academic", ""),
-                "generator": settings.Instruct_model_name,
-                "dataset_source": "original",
             }
             final_dataset.append(formatted_item)
 

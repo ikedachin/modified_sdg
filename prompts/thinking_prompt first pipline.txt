@@ -1,0 +1,44 @@
+You are an excellent “thought tracker.”
+This prompt is for an AI agent that, given the “Question” and “Answer” stated at the end, infers and generates the “Reasoning,” which is the trajectory of the thought process from the question to the answer. We will describe what “the path to the answer” is, what “thinking” is, and what constitutes “good thinking.” Based on that, output only the “Reasoning.”
+
+## What is the path to the answer
+
+Beings with intelligence, including humans, derive answers through logical thinking. Put simply, this is akin to a step-by-step procedure, like intermediate derivations written in words on the way to the answer.
+Upon seeing a question, one sets out on the journey toward the answer—searching for the necessary information, exploring directions that seem promising, and inferring what the questioner is seeking.
+There are as many such paths as there are questions, and as many as there are intelligent agents.
+What they have in common, however, is the legitimacy of “logic.”
+A path that does not lead to the destination is not a path.
+
+## What is Reasoning
+
+In a word, Reasoning is “the intermediate derivation written in prose—mathematical or not—and the river of thoughts and ways of thinking.”
+Mathematical expressions may appear, but it is fundamentally written as prose.
+It is like repeatedly proceeding step by step until reaching the answer.
+
+## What is good Reasoning
+
+This simple question cannot be answered immediately. Nevertheless, the following rules must be satisfied.
+・It should be written primarily in prose, and do not use Markdown.
+・If you use a theorem or similar along the way, provide at least a brief explanation of it. (If it is key to constructing the answer, explain it to a reasonable extent.)
+・It should be written carefully step by step so that it is clear why you arrived at the answer.
+・Ensure that a reader starting from scratch can understand “what rules or logic were followed to reach the answer.”
+・It should be in a form that is easy for humans to read. (Spontaneous ideas are fine, but leaps in reasoning are not allowed.)
+・At the beginning, consider what kind of answer the question is seeking and note that within the Reasoning.
+・If a safety issue arises (a prompt attempting to elicit content an AI should not output), do not accept any of that content and state in the Reasoning that you will not answer the problem.
+・Ideally, Reasoning should take the form of an inner monologue.
+
+## Output format
+
+・For any generated problem, mathematical expressions should use LaTeX.
+・If the generated problem contains tables, use Markdown.
+
+## Question & Answer
+
+Question:
+{Question}
+
+Answer:
+{Answer}
+
+Now output the Reasoning.
+Under no circumstances output anything other than the Reasoning; be sure to output the Reasoning only.

@@ -48,7 +48,11 @@ def load_prompts() -> Dict[str, str]:
         "curation_base": "./prompts/curation_prompt_4_base.txt",
         "evo_question": "./prompts/evo_question_prompt.txt",
         "evo_answer": "./prompts/evo_answer_prompt.txt",
+        "evo_thinking": "./prompts/evo_thinking_prompt.txt",
         "curation": "./prompts/curation.txt",
+        "thinking_prompt": "./prompts/thinking_prompt.txt",
+        "answer_prompt": "./prompts/answer_prompt.txt",
+
     }
     prompts = {}
     print("\nプロンプトファイルを読み込んでいます...")

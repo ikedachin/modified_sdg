@@ -81,3 +81,6 @@ env/
 data/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# yaml files
+*.yaml
