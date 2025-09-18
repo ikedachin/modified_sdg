@@ -57,7 +57,7 @@ python test_run.py
 2 つのサンプルプロンプトに対する推論結果が標準出力に表示されます。
 
 ```bash
-python main.py
+python main_2.py --config <YOUR_CONFIG_FILE_PATH>
 ```
 
 ### データ生成パイプライン
