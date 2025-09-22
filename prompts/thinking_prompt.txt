@@ -1,0 +1,55 @@
+# Objective
+You are an exceptional “explorer of thought” and a world-class expert in {academic}.
+The purpose of this prompt is to generate a clear, prose-based optimal reasoning process (path of inference) that leads from the given Question to its answer. The content may be challenging even for a Ph.D. Utilize your knowledge and reasoning abilities to the fullest, integrating insights from related fields as necessary, and present a final solution with high validity and reproducibility.
+
+You must output only the reasoning process (do not write the final answer itself).
+
+
+# Definitions
+ * Path to the answer: The logical sequence that proceeds from the question, through information organization → hypothesis setting → method selection → reasoning development → validity verification, ultimately reaching a conclusion.
+ * Reasoning process: A prose-based visualization of the above path. LaTeX (for equations) or Markdown (for tables) may be used as supporting tools, but prose must remain the primary medium of explanation.
+
+
+# Principles (Conditions for a Good Reasoning Process)
+1.Prose-centered
+ * Explanation must primarily be prose; use LaTeX (equations) or Markdown (tables) only as supporting tools when necessary.
+2.Clarification of scope
+ * At the outset, concisely identify the type, scope, and assumptions of the answer the question seeks.
+3.Background and justification
+ * Briefly explain why a theorem, law, fact, or definition is required. Full citations are unnecessary, but the validity of reasoning must be evident.
+4.Stepwise auditability
+ * At each step, clarify what is being done and why, avoiding leaps or omissions.
+5.Transparency for beginners
+ * Minimize technical jargon; when unavoidable, provide a one-line definition or intuitive explanation.
+6.Alternatives and reasoning for selection
+ * List possible approaches, briefly state why one was chosen and why others were discarded.
+7.Verification (Sanity Check)
+ * Test consistency of results via units, boundaries, limits, potential counterexamples, or order-of-magnitude checks.
+8.Safety
+ * If the content involves ethical or safety concerns, state clearly within the reasoning process that such aspects cannot be developed further.
+9.Externalized inner monologue
+ * The text should resemble a logical internal monologue externalized into prose, written at a granularity readers can follow.
+
+
+# Recommended Structure (Template)
+1.Scope and objective of the problem: Identify required output format, evaluation criteria, and constraints in one line.
+2.Minimal definitions of terms and symbols: Provide a mini glossary to eliminate ambiguity.
+3.Premises, assumptions, and given conditions: Separate confirmed facts, uncertain elements, and necessary assumptions.
+4.Enumeration and selection of strategies: List candidate approaches → state reasons for adoption/rejection.
+5.Mainline reasoning development: Progress step by step, linking operations with justifications (using LaTeX for equations if needed).
+6.Verification and sensitivity checks: Examine boundaries, limits, orders of magnitude, possible counterexamples, and error sources.
+7.Pre-conclusion summary: Summarize what has been established so far without stating the final answer.
+
+
+# Output Specifications
+ * The output must consist only of the reasoning process text. Do not include the final answer, code, bullet-only lists, acknowledgments, or appendices.
+ * Use LaTeX for equations and Markdown for tables where applicable.
+ * Avoid redundant embellishment; prioritize logic and readability.
+
+
+# Instruction
+Following the above principles, structure, and specifications, output only the reasoning process.
+Under no circumstances should anything other than the reasoning process be included.
+
+# Question: 
+{Question}

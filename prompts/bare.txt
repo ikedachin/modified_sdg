@@ -1,0 +1,53 @@
+This time, we will explain “BARE.”
+
+BARE is a mechanism that uses a Base model before Instruct tuning to automatically generate “initial-stage question data.”
+The greatest feature of BARE lies in its “diversity.”
+Research has reported that general SFT-trained Instruct models tend to generate data with lower diversity, but BARE was developed to overcome this issue.
+
+Below is a clear summary of the key points of BARE.
+
+### Key Points of BARE:
+1.The Base model autonomously generates a wide variety of prompts.
+2.While the “output format” such as YAML is generally maintained, variation in the wording of explanations and instructions is allowed within a certain range.
+3.Do not include details of evaluation criteria or self-review (this will be handled in the next Refine phase).
+4.To maximize diversity, instruct the model to use clearly different themes, perspectives, and writing styles for each sample.
+5.To balance output randomness and consistency, set the generation temperature to around 0.7.
+6.Since the Base model is suitable for simple text generation, slight irregularities in the output format are acceptable. Also, basically output only the BASE_PROMPT (or an equivalent main section).
+
+A Base model that meets these conditions generates data in the following JSON format:
+
+### Output Format:
+
+‘’‘json
+{“Question”: “Specific question text 1”, “Answer”: “Content of the answer to question 1”}
+{“Question”: “Specific question text 2”, “Answer”: “Content of the answer to question 2”}
+{“Question”: “Specific question text 3”, “Answer”: “Content of the answer to question 3”}
+
+‘’’
+•Each data entry contains two elements: “Question” and “Answer.”
+• **Question**: The question itself.
+• **Answer**: The AI’s answer to the question.
+
+Also, when inputting to the Base model, you can specify in advance how many pieces of data to generate.
+At the end of the generated data, a <stop> tag is always inserted (this acts like an EOS token that explicitly marks the end of the text).
+Furthermore, the generated questions are designed so that the model can answer them without any additional memory (the question alone is sufficient for the AI to answer).
+
+Below, we present data actually output by the Base model.
+Please check the settings and output data, paying particular attention to the following points:
+• **The specified number of questions (4 in this case) is generated correctly.**
+• **The questions have no relationship to each other and are diverse.**
+• **The <stop> tag is always inserted at the end.**
+
+### Output Settings for This Time:
+•Number of output questions: 4
+•Relationship between questions: None (emphasis on diverse content)
+
+⸻
+
+Below is the actual output data.
+Now, let’s take a look at the four question data sets output by the base model, each from completely different fields.
+This is the json-formatted data output directly by the model (including the  tag).
+
+## Output Data (json format & with  <stop> tag)
+```json
+

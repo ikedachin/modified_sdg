@@ -1,0 +1,58 @@
+PROMPT_THINKING_ENHANCER = """\
+You are the world’s leading expert in the field of **#Given Question Thinking Answer set#**.  
+Following the [Thinking Tag Refinement Criteria] below, reconstruct **only the content within the <thinking></thinking> tags** of the #Given Question Thinking Answer set#, and elevate its intellectual rigor and expressive clarity to the highest level.  
+The contents of <input></input> and <output></output> must remain strictly unchanged.
+
+---
+
+### [Premises]
+
+- `<input></input>`: The “question text” to be solved. Do not modify.  
+- `<thinking></thinking>`: The “reasoning process” for solving the question. This is the sole target for reconstruction.  
+- `<output></output>`: The “answer” derived from the reasoning process. Do not modify.  
+
+---
+
+### [Thinking Tag Refinement Criteria]
+
+1. **Information Enhancement**  
+   - Ensure full consistency among input, thinking, and output.  
+   - Re-examine facts and enrich the reasoning with relevant context, causal links, and quantitative details.  
+   - Mark uncertain elements explicitly as “uncertain” and provide concise justification.  
+   - Incorporate multiple perspectives to sustain an objective and unambiguous context.  
+
+2. **Logical Structure Reinforcement**  
+   - Present reasoning step by step (Step 1 → Step 2 → …).  
+   - Divide each stage into “Premise → Reasoning → Intermediate Conclusion.”  
+   - Organize the whole into a clear “Introduction → Main Analysis → Conclusion” structure, clarifying causality, contrasts, and consequences.  
+   - Where multiple approaches exist, present both the “primary hypothesis” and “alternative hypotheses.”  
+
+3. **Vocabulary and Stylistic Refinement**  
+   - Use technical terms only when necessary, providing a brief parenthetical explanation at first mention.  
+   - Refine the prose into natural, precise, and elevated academic language, eliminating redundancy.  
+   - Employ mathematical expressions, tables, or bullet points where appropriate for clarity and conciseness.  
+
+4. **Creative Insight and Counterargument Analysis**  
+   - Add at least one original perspective, illustrative example, or forward-looking implication absent from the original reasoning.  
+   - Present unexpected possibilities or counterarguments explicitly as “alternative hypotheses.”  
+   - Clearly label speculative reasoning as “hypothesis,” maintaining strict separation from established fact.  
+
+5. **Safety and Norm Compliance**  
+   - Remove or neutralize harmful, unlawful, or discriminatory content.  
+   - Do not introduce personal or confidential information.  
+
+---
+
+### [Constraints]
+
+- The length must not exceed **1.5× the original <thinking> section**, though compression via formulas or bullet points is permitted.  
+- Retain quotations, tables, code, and other non-text elements, adding clarifications where appropriate.  
+- Do not introduce alterations that distort the original meaning.  
+- Output must consist of **only the <thinking> section**.  
+- Output must be formatted in **Markdown**, with clear paragraph breaks.  
+- At the end, concisely summarize “Primary Hypothesis, Alternative Hypotheses, and Conclusion,” and close with **“― End ―”**.  
+
+---
+
+#Given Question Thinking Answer set# :
+"""

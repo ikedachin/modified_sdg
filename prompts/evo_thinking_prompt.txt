@@ -1,0 +1,69 @@
+PROMPT_THINKING_ENHANCER = """\
+You are a world-class expert in the field of **{academic}**.  
+Based on the following [Refinement Criteria], reconstruct the entire set of #Question · Think · Answer#, with a particular focus on dramatically enhancing the quality of the **Think (Reasoning Process)**.
+
+---
+
+### [Premises]
+
+- **Question**: The problem statement to be solved. Modification is prohibited.  
+- **Think**: The reasoning process that leads to the answer. This is the target for improvement in this task.  
+- **Answer**: The final response. Modification is generally prohibited.  
+
+---
+
+### [Refinement Criteria]
+
+1. **Information Enrichment**  
+   - Ensure consistency among Question, Think, and Answer; if inconsistencies exist, revise only the Think part.  
+   - Add appropriate background, causal relationships, and numerical details.  
+   - Clearly mark uncertain points as "uncertain" and provide concise justification.  
+   - Incorporate objective and multi-perspective viewpoints to avoid misunderstanding.  
+
+2. **Strengthening Logical Structure**  
+   - Organize reasoning step-by-step (Step 1 → Step 2 → …).  
+   - Explicitly present each step as "Premise → Inference → Intermediate Conclusion."  
+   - Structure the whole as "Introduction → Main Discussion → Conclusion," clarifying causal relations.  
+   - If multiple approaches exist, present a "Primary Hypothesis" and "Alternative Hypothesis."  
+
+3. **Vocabulary and Style Enhancement**  
+   - Use technical terms only when necessary, providing a concise explanation in parentheses on first use.  
+   - Refine into concise and elevated expressions, eliminating redundancy.  
+   - Employ formulas, tables, and bullet points where appropriate for clarity.  
+
+4. **Creative Insight and Counterargument Consideration**  
+   - Add at least one new perspective, example, or insight not present in the original reasoning.  
+   - Present unexpected possibilities or counterarguments as "Alternative Hypotheses."  
+   - Always label speculation as "Hypothesis," distinguishing it from facts.  
+
+5. **Safety and Norm Compliance**  
+   - Remove or neutralize harmful, illegal, or discriminatory elements.  
+   - Do not introduce personal or confidential information.  
+
+---
+
+### [Verification and Correction (Handling of Incorrect Answers)]
+
+- **Verification**: Always confirm that the Answer is consistent with the Question and justified by the reasoning in Think.  
+- **If errors or contradictions are detected**:  
+  - Keep the Answer unchanged as a rule.  
+  - As a world-class expert in **{academic}**, re-examine the Think section and reconstruct it accurately.  
+
+---
+
+### [Constraints]
+
+- Word count must not exceed **1.2×** the length of the original Think (compression via formulas or bullet points is allowed).  
+- Preserve citations, tables, code, etc., and add supplements if necessary.  
+- Prohibited: distortions that alter the original meaning.  
+- **Output only the Think section.**  
+- Output must be in **Markdown format**, with line breaks between paragraphs.  
+- At the end, concisely summarize "Primary Hypothesis · Alternative Hypotheses · Conclusion (and, if needed, 《Correction》)" and append **“― End ―”**.  
+
+---
+
+# Input Data
+Question: {Question}  
+Think: {thinking}  
+Answer: {answer}  
+"""

@@ -1,0 +1,27 @@
+PROMPT_ADVANCER_COMPLEX = """\
+You are the world’s foremost expert in the field indicated by **#Original Prompt**.  
+Based on the four criteria below, refine and elevate the given prompt, transforming it into the ultimate high-difficulty prompt.
+
+【Evolution Criteria】  
+1. **Question Clarity**  
+   - The intent and purpose must be unambiguously identifiable.  
+   - The context must be such that it can be correctly understood from multiple perspectives without misunderstanding.  
+
+2. **Difficulty Enhancement**  
+   - Add at least one new condition or constraint not present in the original, making deeper reasoning and the use of integrated, complex knowledge essential.  
+
+3. **Originality Injection**  
+   - Add perspectives or creative elements that go beyond common sense, demanding novel and unconventional thinking in the answer.  
+
+4. **Safety Compliance**  
+   - Fully comply with ethics, laws, and regulations, and revise or remove any expressions that violate public order and morals.  
+
+【Constraints】  
+- Additional descriptions must not exceed 40 words in total.  
+- Any tables, code, or data contained in the original must be preserved.  
+- Maintain natural English and grammatical consistency, and ensure a clear format that AI can interpret accurately.  
+- For generated problems, mathematical formulas must use LaTeX format.  
+- If the generated problem contains tables, they must use Markdown format.  
+
+#Original Prompt#:
+"""

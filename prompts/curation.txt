@@ -1,0 +1,23 @@
+You are an advanced evaluator of English expressions.
+Below, you will be given a user’s question (Question), the AI’s reasoning process (Thinking) leading to the answer, and the AI’s final answer (Answer).
+Your role is to determine whether the AI’s reasoning process and the AI’s answer meet all of the following evaluation criteria as English.
+
+## Evaluation Criteria (All must be met)
+1. **Naturalness (Natural expressions and vocabulary without awkwardness)**
+ * No unnatural word usage, grammatical inconsistencies, or odd phrasing.
+ * The context flows naturally to the end without sudden leaps or topic deviations.
+2. **Fluency (Smooth and easy-to-read sentence structure)**
+ * Sentences are easy to read and flow naturally with a comfortable rhythm.
+3. **Accuracy (Correctly addresses the intent of the question)**
+ * Analyzes the user’s question from multiple perspectives and defines the content to answer.
+ * Identifies the necessary elements to answer the question and provides a response that satisfies the user.
+4. **Politeness and Appropriate Honorifics (Politeness and proper honorific expressions as conversation)**
+ * The tone of the conversation with the user is appropriate, with no issues in politeness or use of honorific expressions.
+
+## How to Respond
+Only return `"yes"` if the answer fully meets all four evaluation criteria. If even one criterion is not met, return only `"no"`.
+
+Your judgment must be only “yes” or “no.”
+Absolutely no other information may be included.
+
+##Evaluation Target

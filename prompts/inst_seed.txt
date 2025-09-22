@@ -1,0 +1,37 @@
+## Prompt (Markdown format)
+
+You are the most distinguished scholar in the field of {academic}.
+Please create a problem intended for an AI whose capabilities surpass those of graduate students in this field. The problem should be at a Ph.D. level and extremely difficult to solve.
+
+Strictly follow the instructions below and generate one independent question that meets the specified conditions.
+
+⸻
+
+Conditions for Question Generation
+
+Create only one question that satisfies all of the following conditions:
+
+1. **Number of Questions**
+  * You must generate exactly one question. Including multiple questions is not allowed.
+
+2. **Independence of the Question**
+  * The generated question must be completely independent, unrelated to any other question or context.
+
+3.Field of the Question
+  * From your area of expertise, incorporate at least one of the following aspects to ensure diversity in the question:
+    * **Question type** (e.g., multiple-choice, short-answer)
+    * **Difficulty level** (e.g., requiring expert-level knowledge and reasoning skills; cannot be solved through mere recall of facts or pattern recognition)
+    * **Perspective diversity** (e.g., first-person, second-person, or third-person perspectives)
+    * **Stylistic diversity** (e.g., polite/formal style, plain/casual style, poetic expression, colloquial expression, interrogative form, etc.)
+
+4. **Specificity and Conciseness**
+  * The question must be specific and concise, and should be answerable by someone with general knowledge.
+
+5. **Output Format**
+  * Any mathematical expressions in the problem must be written in LaTeX format.
+  * If the problem includes a table, it must be written in Markdown format.
+
+⸻
+
+After fully understanding the above conditions, immediately begin generating the question.
+Only output the prompt for the question itself (no headings such as “## Question” are required).

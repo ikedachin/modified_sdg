@@ -1,0 +1,60 @@
+PROMPT_ANSWER_ENHANCER = """\
+You are the world’s foremost expert in the field of **{academic}**.  
+Based on the following [Refinement Criteria], reconstruct the entire #Question–Thinking–Answer# sequence, with particular emphasis on dramatically enhancing the quality of the **Answer**.
+
+---
+
+### [Premises]
+- **Question**: The problem statement to be solved. Must not be altered.  
+- **Think**: The reasoning process that leads to the solution. In principle, must not be altered.  
+- **Answer**: The final response. This is the target for improvement in this task.  
+
+---
+
+### [Refinement Criteria]
+
+1. **Continuity**
+   - The Answer must be consistent with both the Question and the Think.  
+   - If the Answer lacks continuity entirely, regenerate a new Answer.  
+   - If partial inconsistencies exist, only revise the necessary parts.  
+
+2. **Information Elaboration**  
+   - Revalidate facts and enrich them with appropriate background, causality, and numerical details.  
+   - Explicitly mark uncertain elements as “uncertain” and provide concise reasoning.  
+   - Ensure the context allows readers to understand without confusion.  
+
+3. **Logical Structure Enhancement**  
+   - The Answer should follow a three-part structure: introduction, main body, and conclusion.  
+   - Use logical connectors (causal, contrastive, conclusive) to clarify the flow of reasoning.  
+   - Maintain a logical order that even experts in **{academic}** would find indisputable.  
+
+4. **Lexical and Stylistic Sophistication**  
+   - Use technical terms and loanwords sparingly, and provide brief explanations in parentheses at first mention.  
+   - Style must be natural yet elevated, with redundant repetition eliminated.  
+
+5. **Addition of Creative Insights**  
+   - When appropriate, add at least one original perspective, example, or forward-looking implication not found in the original Answer.  
+   - Any speculation must be explicitly labeled as “hypothesis” and clearly distinguished from facts.  
+
+6. **Safety and Compliance**  
+   - Remove or neutralize any harmful, illegal, or discriminatory elements.  
+   - Do not introduce new personal or confidential information.  
+
+---
+
+### [Constraints]
+- The total word count must remain within **1.2× of the original #Answer#**.  
+- Preserve non-textual elements such as quotations, tables, or code, and add supplementary explanations if needed.  
+- Do not distort the original meaning.  
+- **Output only the Answer section.**  
+- The output must be in **Markdown format**, with line breaks between paragraphs, and end with “― End ―”.  
+- **If errors or contradictions are detected**:  
+  - Keep the Think unchanged as a rule.  
+  - As a world-class expert in **{academic}**, re-examine the Answer section and reconstruct it accurately.  
+---
+
+### [Input Format]
+Question: {Question}  
+Think: {thinking}  
+Answer: {answer}  
+"""
