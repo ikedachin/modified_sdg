@@ -1,0 +1,111 @@
+# *****************************************
+#   各種APIを利用するための設定
+#   下記ブロックのうち、利用する部分のみを
+#   コメントアウトしてご利用ください
+# *****************************************
+
+
+# ----------------------------
+#  ↓↓↓  OpenAI API設定  ↓↓↓
+# ----------------------------
+inference_backend: "api_openai_comp"
+# inference_backend: "api_openai"
+openai_api_key: "sk-or-"
+openai_comp_api_key: "sk-or-"
+openai_base_url: "https://openrouter.ai/api/v1"
+openai_comp_endpoint: "https://openrouter.ai/api/v1"
+Instruct_model_name: "qwen/qwen3-30b-a3b-instruct-2507"
+Instruct_temperature: 0.7
+Instruct_top_p: 1.0
+base_model_name: "openai/gpt-oss-120b"
+base_temperature: 0.7
+base_top_p: 1.0
+think_model_name: "openai/gpt-oss-120b"
+think_temperature: 0.7
+think_top_p: 1.0
+E5_path: "./data/model/multilingual-e5-large"
+# openai_E5_model_name: "text-embedding-ada-002"
+E5_model_name: "./data/model/multilingual-e5-large"
+# ----------------------------
+#   ↑↑↑  OpenAI API設定 ↑↑↑
+# ----------------------------
+
+# ----------------------------------
+#   ↓↓↓ Google(Vartex) API設定　↓↓↓
+# ----------------------------------
+# # --- Google API設定
+# inference_backend: "api_google"
+# google_api_key: "YOUR_GOOGLE_API_KEY"
+# Instruct_model_name: "gemini-2.5-flash-lite"
+# Instruct_temperature: 0.7
+# Instruct_top_p: 1.0
+# base_model_name: "gemini-2.5-flash-lite"
+# base_temperature: 0.7
+# base_top_p: 1.0
+# think_model_name: "gemini-2.5-flash-lite"
+# think_temperature: 0.7
+# think_top_p: 1.0
+# E5_model_name: "gemini-embedding-001"
+# ----------------------------------
+#   ↑↑↑ Google(Vartex) API設定　↑↑↑
+# ----------------------------------
+
+
+# ----------------------------------------
+#   ↓↓↓   OpenAI互換API設定　 ↓↓↓
+#  ※FastAPI、OpenRouter、mlx_lm.server等
+# ----------------------------------------
+# inference_backend: "api_openai_comp"
+# # openai_comp_api_key: "YOUR_OPENAI_COMPLIANT_API_KEY"
+# openai_comp_endpoint: "http://localhost:1234/v1"
+# Instruct_model_name: "google/gemma-3-1b"
+# Instruct_temperature: 0.7
+# Instruct_top_p: 1.0
+# base_model_name: "google/gemma-3-1b"
+# base_temperature: 0.7
+# base_top_p: 1.0
+# think_model_name: "deepseek-r1-distill-qwen-1.5b"
+# think_temperature: 0.7
+# think_top_p: 1.0
+# E5_model_name: "text-embedding-mxbai-embed-large-v1"
+# ----------------------------------
+#   ↑↑↑   OpenAI互換API設定　 ↑↑↑
+# ----------------------------------
+
+
+# --- 共通設定
+batch_size: 8
+max_tokens: 8192
+seed: 43
+
+# --- 質問データ生成パイプラインの設定
+Seed_generation_method: "inst"
+Prompt_evolution: False
+Prompt_evolution_times: 0
+Number_of_stages_of_prompt_evolution: False
+Data_retention_rate_after_diversity_cut: 100
+
+# --- 回答データ進化パイプラインの設定
+Answer_evolution: True #　変更
+Answer_evolution_times: 0
+Number_of_stages_of_answer_evolution: False
+
+# --- 長考モデルの回答の設定
+Using_think_models_for_answer: True
+Thinking_separation_evolution: False
+Number_of_thought_evolutions: 1
+
+# --- 思考データ生成パイプラインの設定
+Using_think_models_for_thinking: True
+Thinking_evolution: True　# 変更
+Thinking_evolution_times: 1
+Number_of_stages_of_thinking_evolution: True
+
+# --- 回答データキュレーションの設定
+Data_curation: False
+
+# --- 出力先などに関する設定
+data_folda_path: "./data_ono"
+Save_temporary_data: True
+Number_of_questions_generated: 128
+output_path: "./data_ono"
